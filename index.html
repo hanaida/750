@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이템 뽑기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>아이템 뽑기</h1>
+    <button onclick="drawItem()">뽑기</button>
+    <div id="result"></div>
+
+    <script>
+        const items = [
+            { name: "종언의 마피아 스킨", min: 1, max: 1, probability: 2.7 },
+            { name: "잠입 심문관 최면술사 스킨", min: 1, max: 1, probability: 2.7 },
+            { name: "학살자 테두리", min: 1, max: 1, probability: 2.7 },
+            { name: "마법의 염색약", min: 25, max: 27, probability: 2.8 },
+            { name: "깜짝 엽서", min: 9, max: 11, probability: 2.8 },
+            { name: "10주년 기념 엽서", min: 40, max: 45, probability: 4.7 },
+            { name: "추천장", min: 50, max: 60, probability: 4.7 },
+            { name: "왕가의 보물", min: 8, max: 10, probability: 4.6 }
+        ];
+        
+        function drawItem() {
+            let totalProbability = items.reduce((sum, item) => sum + item.probability, 0);
+            let random = Math.random() * totalProbability;
+            let cumulative = 0;
+
+            for (let item of items) {
+                cumulative += item.probability;
+                if (random <= cumulative) {
+                    let quantity = Math.floor(Math.random() * (item.max - item.min + 1)) + item.min;
+                    document.getElementById("result").innerText = `${item.name} x${quantity}`;
+                    return;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
