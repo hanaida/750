@@ -18,7 +18,7 @@
         }
         #result {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(5, 1fr); /* 기본 2×5 배치 */
             gap: 10px;
             justify-content: center;
             margin-top: 20px;
@@ -46,19 +46,20 @@
             height: 70px;
             object-fit: contain;
         }
-        /* 모바일 환경에서 2x5 유지 */
+        /* ✅ 모바일 환경에서도 2×5 유지 */
         @media (max-width: 500px) {
             #result {
-                grid-template-columns: repeat(2, 1fr);
-                max-width: 220px;
+                grid-template-columns: repeat(5, 1fr); /* 무조건 가로 5 유지 */
+                max-width: 300px;
             }
             .item-box {
-                width: 90px;
-                height: 120px;
+                width: 55px;
+                height: 75px;
+                font-size: 12px;
             }
             .item-box img {
-                width: 60px;
-                height: 60px;
+                width: 40px;
+                height: 40px;
             }
         }
     </style>
