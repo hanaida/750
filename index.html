@@ -13,19 +13,43 @@
         button {
             font-size: 20px;
             padding: 10px 20px;
-            margin-top: 20px;
+            margin: 10px;
             cursor: pointer;
         }
         #result {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
             margin-top: 20px;
-            font-size: 24px;
-            font-weight: bold;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .item-box {
+            width: 110px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ccc;
+            padding: 10px;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .item-box img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
         }
     </style>
 </head>
 <body>
     <h1>아이템 뽑기</h1>
-    <button onclick="drawItem()">뽑기</button>
+    <button onclick="drawItem()">1회 뽑기</button>
+    <button onclick="drawTenItems()">10회 뽑기</button>
     <div id="result"></div>
 
   <script>
@@ -102,7 +126,7 @@
       { name: "왕가의 보물", min: 8, max: 10, probability: 4.6 },
     ];
 
-    function drawItem() {
+    function getRandomItem() {
             let totalProbability = items.reduce((sum, item) => sum + item.probability, 0);
             let randomNumber = Math.random() * totalProbability;
             let cumulativeProbability = 0;
@@ -111,11 +135,41 @@
                 cumulativeProbability += item.probability;
                 if (randomNumber <= cumulativeProbability) {
                     const quantity = Math.floor(Math.random() * (item.max - item.min + 1)) + item.min;
-                    const resultDiv = document.getElementById("result");
-                    resultDiv.innerHTML = `${item.name} ${quantity}개 획득!<br>
-                        <img src="${item.name}.png" alt="${item.name}">`;
-                    break;
+                    return { name: item.name, quantity };
                 }
+            }
+        }
+
+        function drawItem() {
+            const { name, quantity } = getRandomItem();
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `<div class="item-box" style="opacity: 1; transform: scale(1);">
+                <img src="${name}.png" alt="${name}">
+                <p>${name} ${quantity}개</p>
+            </div>`;
+        }
+
+        function drawTenItems() {
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "";  // 기존 결과 초기화
+
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const { name, quantity } = getRandomItem();
+                    const itemBox = document.createElement("div");
+                    itemBox.classList.add("item-box");
+                    itemBox.innerHTML = `
+                        <img src="${name}.png" alt="${name}">
+                        <p>${name} ${quantity}개</p>
+                    `;
+                    resultDiv.appendChild(itemBox);
+
+                    // 애니메이션 효과 적용
+                    setTimeout(() => {
+                        itemBox.style.opacity = "1";
+                        itemBox.style.transform = "scale(1)";
+                    }, 50);
+                }, i * 300); // 0.3초 간격으로 등장
             }
         }
     </script>
