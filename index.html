@@ -28,29 +28,93 @@
     <button onclick="drawItem()">뽑기</button>
     <div id="result"></div>
 
-    <script>
-        const items = [
-            { name: "종언의 마피아 스킨", min: 1, max: 1, probability: 2.7 },
-            { name: "잠입 심문관 최면술사 스킨", min: 1, max: 1, probability: 2.7 },
-            { name: "학살자 테두리", min: 1, max: 1, probability: 2.7 },
-            { name: "마법의 염색약", min: 25, max: 27, probability: 2.8 },
-            { name: "깜짝 엽서", min: 9, max: 11, probability: 2.8 },
-            { name: "10주년 기념 엽서", min: 40, max: 45, probability: 4.7 },
-            { name: "추천장", min: 50, max: 60, probability: 4.7 },
-            { name: "왕가의 보물", min: 8, max: 10, probability: 4.6 }
-        ];
-        
-        function drawItem() {
-            let totalProbability = items.reduce((sum, item) => sum + item.probability, 0);
-            let random = Math.random() * totalProbability;
-            let cumulative = 0;
+  <script>
+    const items = [
+      { name: "종언의 마피아 스킨", min: 1, max: 1, probability: 2.7 },
+      { name: "잠입 심문관 최면술사 스킨", min: 1, max: 1, probability: 2.7 },
+      { name: "학살자 테두리", min: 1, max: 1, probability: 2.7 },
+      { name: "금색의 추 테두리", min: 1, max: 1, probability: 2.7 },
+      { name: "잔혹한 표장", min: 1, max: 1, probability: 2.7 },
+      { name: "성스러운 대들보", min: 1, max: 1, probability: 2.7 },
+      { name: "고풍스러운 살생부", min: 1, max: 1, probability: 2 },
+      { name: "야전병원의 의사 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "결의에 찬 시민 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "최전선의 자경단원 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "결사대원의 후드 테두리", min: 1, max: 1, probability: 0.6 },
+      { name: "홀스터 테두리", min: 1, max: 1, probability: 0.6 },
+      { name: "수제 볼트통", min: 1, max: 1, probability: 0.6 },
+      { name: "야전병원의 밤", min: 1, max: 1, probability: 0.6 },
+      { name: "신원미상의 전투 일지", min: 1, max: 1, probability: 0.4 },
+      { name: "무도회의 꽃 스파이 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "무도회의 신사 경찰 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "생크림 케이크", min: 1, max: 1, probability: 0.6 },
+      { name: "성대한 파티 테두리", min: 1, max: 1, probability: 0.6 },
+      { name: "10주년 케이크 테두리", min: 1, max: 1, probability: 0.6 },
+      { name: "파티의 중심", min: 1, max: 1, probability: 0.6 },
+      { name: "생크림 리본 지갑", min: 1, max: 1, probability: 0.4 },
+      { name: "불확실한 끝 마피아 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "반복되는 시작 의사 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "변혁의 의지 테두리", min: 1, max: 1, probability: 0.6 },
+      { name: "안내자의 테두리", min: 1, max: 1, probability: 0.6 },
+      { name: "심연 속의 흐름", min: 1, max: 1, probability: 0.6 },
+      { name: "종말으로의 비행", min: 1, max: 1, probability: 0.6 },
+      { name: "시간 여행자의 지갑", min: 1, max: 1, probability: 0.4 },
+      { name: "셰퍼드 잠옷 경찰 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "허스키 잠옷 도둑 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "3주년 기념 마피아 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "추억의 영화감독 기자 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "추억의 영화배우 마담 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "흥신소 상담실장 마녀 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "흥신소장 사립탐정 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "쇼퍼홀릭 영매 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "영앤리치 도둑 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "지름신 테두리", min: 1, max: 1, probability: 0.6 },
+      { name: "호화로운 액자 테두리", min: 1, max: 1, probability: 0.6 },
+      { name: "필름 테두리", min: 1, max: 1, probability: 0.6 },
+      { name: "접근 금지선 테두리", min: 1, max: 1, probability: 0.6 },
+      { name: "3주년 기념 명패", min: 1, max: 1, probability: 0.6 },
+      { name: "명예 흥신소 단원 명패", min: 1, max: 1, probability: 0.6 },
+      { name: "부의 대물림", min: 1, max: 1, probability: 0.6 },
+      { name: "아타셰 케이스", min: 1, max: 1, probability: 0.6 },
+      { name: "가정교사 공무원 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "레이디 마담 스킨", min: 1, max: 1, probability: 0.6 },
+      { name: "녹슨 장미 테두리", min: 1, max: 1, probability: 0.6 },
+      { name: "파티용 드레스 테두리", min: 1, max: 1, probability: 0.6 },
+      { name: "말린 장미 회랑", min: 1, max: 1, probability: 0.6 },
+      { name: "고귀한 예법", min: 1, max: 1, probability: 0.6 },
+      { name: "체크무늬 패턴 지갑", min: 1, max: 1, probability: 0.4 },
+      { name: "일급기밀 개굴 수첩", min: 1, max: 1, probability: 0.4 },
+      { name: "저택의 비밀 명부", min: 1, max: 1, probability: 0.4 },
+      { name: "신비한 합창", min: 1, max: 1, probability: 0.4 },
+      { name: "마법의 염색약", min: 25, max: 27, probability: 2.8 },
+      { name: "깜짝 엽서", min: 9, max: 11, probability: 2.8 },
+      { name: "징벌의 엽서", min: 8, max: 9, probability: 2.8 },
+      { name: "주사위 엽서", min: 16, max: 18, probability: 2.8 },
+      { name: "3티어 카드", min: 4, max: 5, probability: 2.8 },
+      { name: "4티어 카드", min: 1, max: 1, probability: 2.8 },
+      { name: "고급스러운 연회장 장식", min: 11, max: 15,probability: 4.6 },
+      { name: "10주년 기념 엽서", min: 40, max: 45, probability: 4.7 },
+      { name: "10주년 확성기", min: 25, max: 30, probability: 4.6 },
+      { name: "추천장", min: 50, max: 60, probability: 4.7 },
+      { name: "4주년 기념 엽서", min: 7, max: 10, probability: 4.6 },
+      { name: "달조각", min: 8, max: 10, probability: 4.6 },
+      { name: "강화 확성기", min: 25, max: 30, probability: 4.6 },
+      { name: "왕가의 보물", min: 8, max: 10, probability: 4.6 },
+    ];
 
-            for (let item of items) {
-                cumulative += item.probability;
-                if (random <= cumulative) {
-                    let quantity = Math.floor(Math.random() * (item.max - item.min + 1)) + item.min;
-                    document.getElementById("result").innerText = `${item.name} x${quantity}`;
-                    return;
+    function drawItem() {
+            let totalProbability = items.reduce((sum, item) => sum + item.probability, 0);
+            let randomNumber = Math.random() * totalProbability;
+            let cumulativeProbability = 0;
+
+            for (const item of items) {
+                cumulativeProbability += item.probability;
+                if (randomNumber <= cumulativeProbability) {
+                    const quantity = Math.floor(Math.random() * (item.max - item.min + 1)) + item.min;
+                    const resultDiv = document.getElementById("result");
+                    resultDiv.innerHTML = `${item.name} ${quantity}개 획득!<br>
+                        <img src="${item.name}.png" alt="${item.name}">`;
+                    break;
                 }
             }
         }
