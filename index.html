@@ -9,6 +9,10 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 20px;
+            background-image: url('배경이미지파일.jpg'); /* 이미지 경로 설정 */
+            background-size: cover; /* 화면 전체를 채우도록 설정 */
+            background-position: center; /* 중앙 정렬 */
+            background-repeat: no-repeat; /* 반복 없음 */
         }
         button {
             font-size: 18px;
@@ -30,7 +34,8 @@
         .item-box {
             width: 16vw; /* 화면 크기에 맞게 조정 */
             height: 24vw;
-            
+            max-width: 100px; /* 최대 크기 제한 */
+            max-height: 140px;
             display: flex;
             flex-direction: column;
             align-items: center;
